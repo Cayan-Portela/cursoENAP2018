@@ -1,0 +1,47 @@
+---
+title: "Aula Introdução"
+author: "Eduardo"
+date: "20 de agosto de 2018"
+output:
+  html_document: default
+  word_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Na primeira aula de R vamos começar a usar a linguagem como uma calculadora
+
+```{r}
+2+2
+```
+Agora vou escrever uma outra conta que só quero o resultado
+
+```{r,echo=FALSE}
+5+5
+```
+
+Vou criar outro ambiente com atalho de teclado ctrl-alt-i
+```{r}
+24:48
+```
+
+
+O valor devido após o disconto é de `r 250*.85`
+
+_Esse texto vai aparecer em italico_
+
+#Agora nova seção
+
+Consigo escrever fórmulas matemáticas $\sum_{i=1}^n\frac{x_i}{n}$
+ 
+$$\sum_{i=1}^n\frac{x_i}{n}$$
+
+
+
+
+
+
+
+
