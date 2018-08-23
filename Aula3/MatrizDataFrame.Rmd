@@ -1,0 +1,92 @@
+---
+title: "Linguagem R de programação Estatística"
+author: "Professor Eduardo Monteiro de Castro Gomes"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, error=TRUE)
+```
+
+####Matrizes
+
+As matrizes são objetos com comportamento semelhante aos vetores mas apresentam duas dimensões organizando seus elementos em linhas e colunas
+```{r}
+mat1 <- matrix(data = 1:12, nrow = 3)
+mat1
+```
+na definição da matriz acima foram definidos os valores que compõe a matriz e foi definida uma das dimensões da matriz. A outra dimensão não precisou ser definida pois as matrizes em R sempre devem ser completas em sua forma retangular e assim se existem 12 elementos dispostos em 3 linhas consequentemente serão utilizadas 4 colunas. Nos casos em que as dimensões e a quantidade valores não for equivalente o princípio de reciclagem será utilizado para que a matriz tenha a forma retangular e seja completa com elementos. Nos casos em que a reciclagem não é completa uma mensagem de aviso é passada. 
+
+```{r}
+mat2 <- matrix(1:5, nrow = 2)
+mat2
+```
+
+
+Note que os números das matrizes foram preenchidos por colunas, mas pode-se optar por fazer o preenchimento por linhas utilizando o argumento _byrow = TRUE_ na definição da matriz
+```{r}
+mat3 <- matrix(data = 1:12, nrow = 3, byrow = TRUE)
+mat3
+```
+
+Os princípios de reciclagem se aplicam tambêm para as operações com matrizes conforme ilustrado a seguir
+```{r}
+mat3 * 10
+mat3 * c(-10,10,1000)
+```
+
+
+A indexação dos elementos na matrix segue o mesmo princípio de endereçamento considerado para os vetores, mas agora com um endereço de linha e outro de coluna na forma [ linha , coluna ]. Por exemplo, o elemento que está na segunda linha e terceira coluna da matriz _mat3_, que é o número 7, pode ser acessado por:
+```{r}
+mat3[ 2 , 3 ]
+```
+
+Podendo-se omitir o endereço de uma das dimensões para indicar o acesso a toda uma linha ou coluna. No exemplo a seguir é selecionada toda a quarta coluna da matriz _mat3_ omitindo-se o endereço de linha e selecionando a quarta coluna.
+```{r}
+mat3[,4]
+```
+
+É possível utilizar vetores para indicar endereços de linhas e colunas e assim para selecionar a primeira e terceira linha da matriz _mat3_ pode-se utilizar um vetor conforme o exemplo
+```{r}
+mat3[ c(1,3) , ]
+```
+
+
+As matrizes tambêm são objetos homgêneos, de forma que todos os elementos contidos em uma matriz devem ser do mesmo tipo. Assim como ocorre para os vetores a linguagem faz a coerção dos elementos inseridos para que todos sejam conforme no sentido de serem do mesmo tipo. 
+
+É muito comum que as informações armazenadas contenham tipos diferentes de informações envolvendo números, nomes, categorias. Para armazenar informações de diferentes tipos em um mesmo objeto pode se utilizar um _data.frame_. 
+
+####Dataframe
+
+O dataframe é um objeto semelhante a matriz por ter duas dimensões sendo elas linahs e colunas mas o dataframe tem a propriedade que cada coluna pode ser de um tipo diferente. Pode-se considerar que um dataframe é um agrupamento de vetores em colunas, onde cada coluna deve ser homogênea e possuir elementos de um único tipo. 
+
+Nesse contexto, de uma forma geral, as linhas representam as observações ou indivíduos e as colunas representam as diferentes variáveis coletadas para cada observação ou indivíduo.
+
+O exemplo a seguir ilustra um dataframe que armazena informações médicas de personagens fictícios.
+
+```{r}
+tabela_medica <- data.frame(nome = c("Ana","Bia","Carol","Daniela","Fernanda"),
+                            idade = c(30,40,50,60,70),
+                            numeroconsultas = c(3,7,1,6,2),
+                            tem_plano=c(TRUE,FALSE,FALSE,TRUE,TRUE))
+tabela_medica
+```
+
+O acesso aos elementos do dataframe podem ser feitos de forma semelhante ao acesso na matriz, pelo endereço de linha e coluna [linha,coluna] e as diferentes colunas podem tambêm ser acessadas por seus nomes de duas formas conforme os seguintes exemplos:
+
+```{r}
+tabela_medica$idade
+tabela_medica[,c("nome","tem_plano")]
+```
+
+
+* Ordenação do data.frame
+
+É comum o interesse em ordenar os dados por uma variável de interesse. Deve-se observar que é fundamental preservar as informações de cada um dos indivíduos. Deve-se determinar a ordem em que as linhas do data.frame será apresentado e a função _order_ será utilizada. No exemplo seguinte a tabela médica é ordenada pelo número de consultas, de forma que as pessoas com mais consultas são apresentadas no topo da tabela.
+
+```{r}
+tabela_medica
+tabela_medica[order(tabela_medica$numeroconsultas, decreasing = TRUE),]
+```
+
+Todas as colunas de um dataframe devem ter a mesma dimensão ou número de elementos.
