@@ -1,0 +1,23 @@
+---
+title: "Exercicio de aula"
+author: "Minicurso R"
+output: pdf_document
+---
+Nesse exercicio vamos simular cotações de abertura e fechamento do dolar durante 30 dias a partir de uma segunda-feira dia primeiro (suponha que aos sábados e domingos tambem ocorre transação de moedas). 
+
+Para simular os dados vamos rodar os seguintes comandos:
+
+```{r}
+set.seed(123)
+cotacoes <- round(rnorm(60, 3.7, .3), 4)
+cotacoes
+```
+
+Considerando que os dados estão organizados na forma: 
+`aberturaDia1,fechamentoDia1,aberturaDia2,fechamentoDia2,...,aberturaDia30,fechamentoDia30`
+
+*Determine a variação diária
+
+*Determine o dia com maior alta e maior baixa
+
+*Apresente apenas as variações de sextas-feiras

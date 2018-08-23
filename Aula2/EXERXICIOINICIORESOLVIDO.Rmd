@@ -1,0 +1,35 @@
+---
+title: "Untitled"
+author: "Eduardo"
+date: "21 de agosto de 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Esse documento é um exemplo da resolução do exercício
+
+Primeira atividade é calcular a média de um conjunto de valores
+
+```{r}
+ round((183.19 + 193.09 + 246.76 + 202.12 + 203.88 + 251.45) / 6 , 2)
+```
+a
+
+\vspace{5cm}
+
+Como o pagamento do mês de Junho será feito em atraso o valor devido com a __multa__ será de `r  251.45 * 1.2`.
+
+As minhas disciplinas favoritas foram:
+
+1. Análise de dados com R
+  + Análise de dados com R denovo
+3. Análise de dados com R mais uma vez
+
+
+[Universidade de Brasília](http:\\www.unb.br)
+
+![Universidade de Brasilia](https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Webysther_20160322_-_Logo_UnB_%28sem_texto%29.svg/200px-Webysther_20160322_-_Logo_UnB_%28sem_texto%29.svg.png){width=5%}
+
