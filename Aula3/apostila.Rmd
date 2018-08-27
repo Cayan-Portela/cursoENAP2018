@@ -8,16 +8,6 @@ output: pdf_document
 knitr::opts_chunk$set(echo = TRUE, error=TRUE)
 ```
 
-##Apresentação
-
-Esse material foi desenvolvido pelo professor Eduardo Monteiro de Castro Gomes sob demanda da ESACS/RJ para o curso  _Linguagem R de programação e pacote Shiny para criação de aplicativos de dados_.  
-
-O material está organizado em dois módulos; o primeiro referente aos princípios gerais da linguagem R de programação estatística, e o segundo referente ao pacote Shiny e funcionalidades gráficas da linguagem R.
-
-Neste primeiro módulo estão apresentadas as principais estruturas de dados (Escalar, Vetor, Matriz, Data.frame e Lista), as principais estruturas de controle (laços de repetição _for_ e _while_ e estruturas para execução condicional) e formas de importação de dados.
-
-
-\newpage
 
 
 
@@ -578,7 +568,7 @@ A função básica para importação de dados para R é a função _read.table_.
 
 No exemplo seguinte serão importados dados referentes a pesca de camarões no estado do Rio Grande do Norte
 ```{r}
-camaroes <- read.table("https://raw.githubusercontent.com/cursoRunb/CursoRJ2018/master/dados/dadoscamarao.txt",
+camaroes <- read.table("dados/dadoscamarao.txt",
                        head = TRUE,
                        dec=",")
 head(camaroes)
