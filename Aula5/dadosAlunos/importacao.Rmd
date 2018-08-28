@@ -17,8 +17,19 @@ summary(dadosHerica)
 require(openxlsx)
 dadosJulio <- read.xlsx("Julio/INGESTÃO DE ALCOOL.xlsx") 
 head(dadosJulio)
+
+
 ```
 
+O excel guarda datas como número de dias a partir de Jan-0-1900.
+Vamos converter para data.
+```{r}
+dadosJulio$data <- as.Date(dadosJulio$data , origin = '1899-12-30')
+head(dadosJulio)
+```
+
+
+Utilizando o argumento sheet = 2, deixamos indicado que iremos ler a tabela que está na segunda planilha do documento.
 ```{r}
 require(readxl)
 dadosMarony <- read_excel("Marony/EQ_10_anos_v2.xls",sheet = 2)
@@ -29,7 +40,17 @@ head(dadosMarony)
 ```{r}
 dadosPedro <- read.csv("Pedro/saques_amostra_201701.csv",sep=";",encoding = "latin1")
 head(dadosPedro)
+
+str(dadosPedro$Valor.Parcela)
 ```
+
+A coluna "Valor.Parcela" esta utilizando separador de virgula para milhares e de ponto para decimais. Portanto, nao foi lida corretamente. Vamos retirar as virgulas referente aos milhares, e transformar em um vetor numérico.
+```{r}
+dadosPedro$Valor.Parcela <- as.numeric( gsub("," , "" , dadosPedro$Valor.Parcela))
+
+str(dadosPedro$Valor.Parcela)
+```
+
 
 ```{r}
 require(openxlsx)
