@@ -1,0 +1,34 @@
+---
+title: "Importação de dados"
+author: "Análise de dados com linguagem R"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+dadosHerica <- read.csv("Herika/Base_dados_Trabalho_Final.csv",sep = ";")
+summary(dadosHerica)
+```
+
+```{r}
+require(openxlsx)
+dadosJulio <- read.xlsx("Julio/INGESTÃO DE ALCOOL.xlsx") 
+head(dadosJulio)
+```
+
+```{r}
+require(readxl)
+dadosMarony <- read_excel("Marony/EQ_10_anos_v2.xls",sheet = 2)
+head(dadosMarony)
+```
+
+
+```{r}
+dadosPedro <- read.csv("Pedro/saques_amostra_201701.csv",sep=";",encoding = "latin1")
+head(dadosPedro)
+```
+
+
