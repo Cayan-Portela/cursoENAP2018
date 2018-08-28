@@ -15,19 +15,12 @@ summary(dadosHerica)
 
 ```{r}
 require(openxlsx)
-dadosJulio <- read.xlsx("Julio/INGESTÃO DE ALCOOL.xlsx") 
+dadosJulio <- read.xlsx("Julio/INGESTÃO DE ALCOOL.xlsx" , detectDates = TRUE) 
 head(dadosJulio)
+str(dadosJulio$km)
 
-
+dadosJulio$km <- as.numeric( gsub("," , "." , dadosJulio$km ) )
 ```
-
-O excel guarda datas como número de dias a partir de Jan-0-1900.
-Vamos converter para data.
-```{r}
-dadosJulio$data <- as.Date(dadosJulio$data , origin = '1899-12-30')
-head(dadosJulio)
-```
-
 
 Utilizando o argumento sheet = 2, deixamos indicado que iremos ler a tabela que está na segunda planilha do documento.
 ```{r}
