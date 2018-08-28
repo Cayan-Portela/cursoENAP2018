@@ -31,4 +31,10 @@ dadosPedro <- read.csv("Pedro/saques_amostra_201701.csv",sep=";",encoding = "lat
 head(dadosPedro)
 ```
 
+```{r}
+require(openxlsx)
+dadosFernando <- read.xlsx("fernando/Planilha PNAE AF 2016.xlsx",startRow = 9)
+head(dadosFernando)
+summary(dadosFernando)
+```
 
