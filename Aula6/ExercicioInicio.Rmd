@@ -8,6 +8,12 @@ output: pdf_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+### Chegamos na metade de nosso curso! Por favor responda a um questionário de avaliação disponível em: 
+
+[https://goo.gl/forms/FL1NvcSvikZalygh2](https://goo.gl/forms/FL1NvcSvikZalygh2)
+
+##Questão 1
+
 Faça a importação do arquivo com informações sobre pesca de camarões disponível em nossa página. (dadoscamarao.txt)
 
 Considerando esses dados determine:
@@ -20,6 +26,8 @@ Considerando esses dados determine:
 * Quantos camarões do sexo masculino pesam mais que a média?
 
 \vspace{1cm}
+
+##Questão 2
 Em nossa página no temos um arquivo com as cotações dos últimos 5 anos das ações PETR3SA. Importe os dados para o R. (PETR3SA.csv)
 
 * Em quantos registros o fechamento foi menor que a abertura?
