@@ -1,0 +1,30 @@
+---
+title: "Exercicios de Aula"
+author: 
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Faça a importação do arquivo com informações sobre pesca de camarões disponível em nossa página. (dadoscamarao.txt)
+
+Considerando esses dados determine:
+
+* Quantos animais do sexo masculino foram registrados?
+* Determine as médias de peso para cada uma das localidades.
+* Determine as médias de peso por sexo.
+* Qauntos animais do sexo feminino foram registrados na localidade de Touros?
+* Qual o peso da quantidade total pescada?
+* Quantos camarões do sexo masculino pesam mais que a média?
+
+\vspace{1cm}
+Em nossa página no temos um arquivo com as cotações dos últimos 5 anos das ações PETR3SA. Importe os dados para o R. (PETR3SA.csv)
+
+* Em quantos registros o fechamento foi menor que a abertura?
+* Qual mês apresentou maior valor de abertura?
+* Qual mês apresentou menor valor de fechamento?
+* Em uma lista armazene as variações entre fechamento e fechamento corrigido, a média e a variância desses valores.
+* Utilizando o comando rm() remova o arquivo que foi importado.
+* Na lista criada encontre o valor da maior variação

@@ -1,0 +1,103 @@
+---
+title: "Exercicios de Aula"
+author: 
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Faça a importação do arquivo com informações sobre pesca de camarões contido em nossa página
+
+```{r}
+dados <- read.table("dadoscamarao.txt", dec=",",header = T)
+```
+
+Considerando esses dados determine:
+
+* Quantos animais do sexo masculino foram registrados?
+```{r}
+summary(dados$Sexo)
+sum(dados$Sexo=="M")
+```
+
+* Determine as médias de peso para cada uma das localidades.
+```{r}
+mean(dados[dados$Local=="BaiaFormosa","Peso"])
+mean(dados[dados$Local=="DiogoLopes","Peso"])
+mean(dados[dados$Local=="Touros","Peso"])
+tapply(dados$Peso,dados$Local,mean)
+
+minhafuncao <- function(valores){
+  c(mean(valores),length(valores))
+}
+tapply(dados$Peso,dados$Local,minhafuncao)
+```
+
+
+* Determine as médias de peso por sexo.
+```{r}
+mean(dados[dados$Sexo=="F","Peso"])
+mean(dados[dados$Sexo=="M","Peso"])
+tapply(dados$Peso,dados$Sexo,mean)
+```
+
+* Qauntos animais do sexo feminino foram registrados na localidade de Touros?
+```{r}
+sum(dados[dados$Local=="Touros","Sexo"]=="F")
+```
+
+* Qual o peso da quantidade total pescada?
+```{r}
+sum(dados$Peso)
+```
+
+
+* Quantos camarões do sexo masculino pesam mais que a média?
+```{r}
+sum(dados[dados$Sexo=="M","Peso"]>mean(dados$Peso))
+```
+
+\vspace{1cm}
+Em nossa página no temos um arquivo com as cotações dos últimos 5 anos das ações PETR3.SA. Importe os dados para o R.
+```{r}
+petro <- read.csv("PETR3SA.csv")
+
+```
+
+
+* Em quantos registros o fechamento foi menor que a abertura?
+```{r}
+sum(petro$Open > petro$Close)
+```
+
+* Qual mês apresentou maior valor de abertura?
+```{r}
+petro$Date[which.max(petro$Open)]
+```
+
+* Qual mês apresentou menor valor de fechamento?
+```{r}
+petro$Date[which.min(petro$Close)]
+```
+
+* Em uma lista armazene as variações entre fechamento e fechamento corrigido, a média e a variância desses valores.
+```{r}
+minhalista <- list(variacao= petro$Adj.Close-petro$Close,
+                   media = mean(petro$Adj.Close-petro$Close),
+                   variancia = var(petro$Adj.Close-petro$Close))
+minhalista
+```
+
+
+* Utilizando o comando rm() remova o arquivo que foi importado.
+```{r}
+rm(petro)
+```
+
+* Na lista criada encontre o valor da maior variação
+```{r}
+max(minhalista$variacao)
+```
+
