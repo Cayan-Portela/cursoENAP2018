@@ -1,0 +1,232 @@
+---
+title: "Visualização de dados com ggplot2"
+author: "Cayan Portela"
+date: "1 de setembro de 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Gramática dos gráficos rm R
+
+O pacote ggplot2 é uma das ferramentas mais elegantes e versáteis para visualização gráfica no R. O pacote implementa a __gramática dos gráficos__ (Wilkinson, Leland. The grammar of graphics, 2006.), um sistema coerente para construção e descrição de gráficos, que se dá na representação gráfica composta por **camadas**.
+
+Para criar um gŕafico utilizando o pacote ggplot2, começãmos com a função ggplot(). O primeiro argumento da função são os dados a serem utilizados para a construção do gráfico. O sinal de '+' concatena o objeto ggplot() criado a partir dos dados com alguma função que representa a camada geométrica (pontos, linhas, etc). O próximo argumento representa os mapeamentos estéticos nos eixos x e y, ou seja, as variáveis a serem representadas nos eixos horizontal e vertical.
+
+A sintaxe 'geral' é dado por 
+```{r, eval=FALSE}
+ggplot( data = dados) + 
+  geom_point(mapping = aes( x = Variavel_1 ,
+                            y = Variavel_2 ))
+```
+
+
+Utlizando os dados de camarões, vamos replicar os gráficos da aula passada, utilizandoo o pacote ggplot2.
+
+```{r}
+dados <- read.table('/home/cayan/Área de Trabalho/dados_Cayan.txt',
+                    header = T , dec = ",")
+```
+
+Replicando os gráficos da aula passada.
+Neste caso específico, não foi passado nenhuma base de dados para a função ggplot2 e os vetores foram criados explicitamente na função aes() correspondente ao argumento mapping.
+```{r}
+library(ggplot2)
+
+ggplot() + 
+  geom_point(mapping = aes(x = c(3,2) ,
+                           y = c(4,1)))
+```
+
+
+A sintaxe do ggplot utiliza o sinal de '+' para concatenar os diferentes elementos gráficos.
+```{r}
+ggplot(data = dados) +
+  geom_point(mapping = aes(x = Peso, y = Ct))
+```
+
+Para adicionar textos nos eixos e título, podemos utilizar a função lab()
+
+```{r}
+ggplot(data = dados) +
+  geom_point(mapping = aes(x = Ct , y = Peso) ) +
+  labs(
+    title = "Camarões do Rio Grande do Norte",
+    x = "Comprimento total em mm",
+    y = "Peso em gramas" 
+    )
+```
+
+Desta mesma maneira, podemos utilizar os argumentos subtitle, tag e caption.
+
+```{r}
+ggplot(data = dados) +
+  geom_point(mapping = aes(x = Ct , y = Peso) ) +
+  labs(
+    title = "Camarões do Rio Grande do Norte",
+    x = "Comprimento total em mm",
+    y = "Peso em gramas",
+    tag = "Gráficos em R",
+    subtitle = "Aula 5",
+    caption = "dados disponívels em: ..."
+  )
+```
+
+Para indicar visualmente o sexo dos camarões, diferenciando por cor, basta incluir o argumenteo 'colour = Sexo' na função aes(). Desta maneira, a coloração dos pontos se dá de acordo com a variável Sexo, que está presente no data.frame. Como podemos observar, a legenda é criada automaticamente.
+
+```{r}
+ggplot(data = dados) +
+  geom_point(mapping = aes(x = Ct , y = Peso , colour = Sexo) ) +
+  labs(
+    title = "Camarões do Rio Grande do Norte",
+    x = "Comprimento total em mm",
+    y = "Peso em gramas"
+  )
+```
+
+
+Para indicar também a variável 'Local', utilizamos o argumento shape. Assim, os pontos terão formas diferentes para as respectivas localidades.
+
+```{r}
+ggplot(data = dados) +
+  geom_point(mapping = aes(x = Ct , y = Peso , 
+                           colour = Sexo , shape = Local) ,
+             size = 2) +
+  labs(
+    title = "Camarões do Rio Grande do Norte",
+    x = "Comprimento total em mm",
+    y = "Peso em gramas"
+  )
+```
+
+Para definir shapes específicos, utiliza-se a função scale_shape_manual(), com os valores referentes a tabela pch.
+Outros argumentos como alpha, são elementos que alteram o visual do gráfico (para mais informações, ?geom_point).
+
+```{r}
+ggplot(data = dados) +
+  geom_point(mapping = aes(x = Ct , y = Peso , 
+                           colour = Sexo , shape = Local) ,
+             size = 2 , alpha = 0.5) +
+  labs(
+    title = "Camarões do Rio Grande do Norte",
+    x = "Comprimento total em mm",
+    y = "Peso em gramas"
+  )
+```
+
+
+```{r}
+ggplot(data = dados) +
+  geom_point(mapping = aes(x = Ct , y = Peso , 
+                           colour = Sexo , shape = Local) ,
+             size = 2) +
+  scale_shape_manual(values=c(3, 16, 17))
+```
+
+A criação de outros tipos de gráficos ocorre de maneira análoga. De maneira geral, muda-se a camada geométrica (geom_algumacoisa). Por exemplo, para criar um histograma utiliza-se a função geom_histogram e assim por diante.
+
+A seguir vamos criar um histograma, boxplot e gráfico de barras como fizemos na aula passada.
+
+```{r}
+ggplot(dados , aes(x = Peso)) +
+  geom_histogram()
+```
+
+```{r}
+ggplot(dados , aes(x = Sexo , y = Peso)) +
+  geom_boxplot()
+```
+
+```{r}
+ggplot(data=dados, aes(x=Sexo)) +
+  geom_bar(stat='count')
+```
+
+
+Para o gŕafico de pizza, primeiramente precisamos criar um data.frame com os valores já calculados, ou seja, percentual de cada classe. 
+
+```{r}
+pizza <- data.frame( Local = names(table(dados$Local)) ,
+                     Valor = as.numeric( table(dados$Local) / sum(table(dados$Local)) ) )
+  
+pizza
+```
+
+
+O que o ggplot faz então, é a representação de um gráfico de barras (com todas as classes) em coordenadas polares.
+
+Este é o gŕafico de barras:
+
+```{r}
+p1 <- ggplot(data = pizza, aes(x="" , y=Valor , fill = Local)) +
+        geom_bar(stat='identity')
+p1
+```
+
+E agora, sua representação em coordenadas polares com ponto fixo de referência em zero.
+
+```{r}
+p1 + 
+  coord_polar("y", start=0)
+```
+
+
+### Utilizando templates 
+
+Após a criação/customização dos gráficos, pode-se utilizar templates já prontos disponíveis no pacote. Exemplo:
+
+```{r}
+ggplot(data = dados) +
+  geom_point(mapping = aes(x = Ct , y = Peso, colour = Sexo) ) +
+  theme_bw()
+```
+
+```{r}
+ggplot(data = dados) +
+  geom_point(mapping = aes(x = Ct , y = Peso, colour = Sexo) ) +
+  theme_dark()
+```
+
+```{r}
+ggplot(data = dados) +
+  geom_point(mapping = aes(x = Ct , y = Peso , colour = Sexo) ) +
+  ggthemes::theme_economist()
+```
+
+
+Gráficos feitos utilizando o ggplot2 são altamente customizáveis. Pequenos detalhes podem gerar uma visualização mais elegante, utilizando as mesmas variáveis.
+
+```{r}
+p2 <- ggplot(data = dados) + 
+        geom_point(mapping = aes(x = Ct , y = Peso , 
+                                 colour = Sexo , shape = Local),
+                   alpha = 0.75 , size = 2) +
+        scale_colour_manual(values = c("deeppink", "dodgerblue3"),
+                            labels = c('Feminino','Masculino')) + 
+        scale_shape_manual(values = c(8 , 16, 17),
+                           labels = c('Baia Formosa','Diogo Lopes','Touros')) +
+        labs(
+             title = "Camarões do Rio Grande do Norte",
+             x = "Comprimento total do camarão\n(em mm)",
+             y = "Peso do camarão\n(em gramas)",
+             colour = "Sexo do camarão",
+             shape = "Localidade do camarão",
+              caption = "Coleta realizada em Novembro de 2017"
+            ) +
+       theme_minimal() +
+       theme(plot.title = element_text(hjust = 0.5))
+
+p2
+```
+
+
+### Interatividade
+
+ Uma grande vantagem ao utilizar o pacote ggplot2, é sua capacidade de comunicação com a biblioteca interativa 'plotly'. Uma vez já feito um gráfico ggplot, fica fácil criar gráficos interativos a partir da função ggplotly().
+ 
+```{r}
+plotly::ggplotly( p2 )
+```
+
